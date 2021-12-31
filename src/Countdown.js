@@ -71,58 +71,67 @@ export default function Countdown() {
     return (
         <>
         <h1>Pomodoro Timer</h1>
-        <p id='timer-label' >{currentTimer}</p>
-        <h2 id='time-left'>{timeFormat(timer)}</h2>
-        <audio id='beep' src='./timer-sound.wav'></audio>
-        <button id='start_stop' onClick={() => {
-            setTimerRunning(!timerRunning)  
-            setTimerSet(true)}}>
-            Start</button>
-        <button id='reset' onClick={resetTimer}>Reset</button>
-        <div id='session'>
-            <h2 id='session-label'> Session Length</h2>
-            <h3 id='session-length'>{sessionTime}</h3>
-            <button id='session-increment' onClick={() => {
-                if (!timerRunning) {
-                    setSessionTime(sessionTime => sessionTime + 1)
-                    if(!timerSet && currentTimer === 'Session') {
-                        setTimer(timer => (sessionTime + 1) * 60)
-                }}
-                    }}>Increase</button>
-            <button id='session-decrement' onClick={() => {
-                if (!timerRunning) {
-                    setSessionTime(sessionTime => sessionTime - 1)
-                    if(!timerSet && currentTimer === 'Session') {
-                        if (sessionTime === 1) {
+        <div id='timer-container'>
+            <h2 id='timer-label' >{currentTimer}</h2>
+            <h2 id='time-left'>{timeFormat(timer)}</h2>
+            <audio id='beep' src='./timer-sound.wav'></audio>
+            <button className='timer-manip' id='start_stop' onClick={() => {
+                setTimerRunning(!timerRunning)  
+                setTimerSet(true)}}>
+                Start</button>
+            <button className='timer-manip' id='reset' onClick={resetTimer}>Reset</button>
+        </div>
+        <div id='setters'>
+            <div id='session'>
+                <h2 id='session-label'> Session Length</h2>
+                <div id='session-row'>
+                    <button className='setter-btn' id='session-increment' onClick={() => {
+                        if (!timerRunning) {
+                            setSessionTime(sessionTime => sessionTime + 1)
+                            if(!timerSet && currentTimer === 'Session') {
+                                setTimer(timer => (sessionTime + 1) * 60)
+                        }}
+                            }}>+</button>
+                    <h3 id='session-length'>{sessionTime}</h3>
+                    
+                    <button className='setter-btn' id='session-decrement' onClick={() => {
+                        if (!timerRunning) {
+                            setSessionTime(sessionTime => sessionTime - 1)
+                            if(!timerSet && currentTimer === 'Session') {
+                                if (sessionTime === 1) {
+                                    setTimer(1 * 60)
+                                } else {
+                                    setTimer((sessionTime - 1) * 60)}}
+                                }
+                                
+                            }}
+                        >−</button>
+                    </div>
+            </div>
+            <div id='break'>
+                <h2 id='break-label'>Break Length</h2>
+                <div id='break-row'>
+                    <button className='setter-btn' id='break-increment' onClick={() => {
+                        if (!timerRunning) {
+                        setBreakTime(breakTime => breakTime + 1)
+                        if (!timerSet && currentTimer === 'Break') {
+                            setTimer(timer => (breakTime + 1) * 60)}}
+                        }}
+                        >+</button>
+                        <h3 id='break-length'>{breakTime}</h3>
+                    <button className='setter-btn' id='break-decrement' onClick={() => {
+                    if (!timerRunning) {  
+                    setBreakTime(breakTime => breakTime - 1)
+                    if (!timerSet && currentTimer === 'Break') {
+                        if (breakTime === 1) {
                             setTimer(1 * 60)
                         } else {
-                            setTimer((sessionTime - 1) * 60)}}
-                        }
-                        
-                    }}
-                >Decrease</button>
+                        setTimer((breakTime - 1) * 60)}}
+                    }}}
+                    >−</button>
+                </div>
+            </div>
             
-        <div id='break'>
-            <h2 id='break-label'>Break Length</h2>
-            <h3 id='break-length'>{breakTime}</h3>
-            <button id='break-increment' onClick={() => {
-                if (!timerRunning) {
-                setBreakTime(breakTime => breakTime + 1)
-                if (!timerSet && currentTimer === 'Break') {
-                    setTimer(timer => (breakTime + 1) * 60)}}
-                }}
-                >Increase</button>
-            <button id='break-decrement' onClick={() => {
-            if (!timerRunning) {  
-            setBreakTime(breakTime => breakTime - 1)
-            if (!timerSet && currentTimer === 'Break') {
-                if (breakTime === 1) {
-                    setTimer(1 * 60)
-                } else {
-                setTimer((breakTime - 1) * 60)}}
-            }}}
-            >Decrease</button>
-        </div>
         </div>
 
         </>
