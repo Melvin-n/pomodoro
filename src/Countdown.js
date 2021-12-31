@@ -107,8 +107,9 @@ export default function Countdown() {
         setTimer(25 * 60)
         setBreakTime(5)
         setCurrentTimer('Session')
-        beep.pause()
-        beep.currentTime = 0
+        document.getElementById('beep').pause()
+        document.getElementById('beep').currentTime = 0
+
     }
 
     
