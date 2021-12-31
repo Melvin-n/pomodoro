@@ -1,6 +1,5 @@
 import './App.css';
 import React from 'react';
-import { useTimer } from 'react-timer-hook';
 import Countdown from './Countdown';
 
 function App() {
@@ -8,7 +7,7 @@ function App() {
   
   
     return (
-      <div>
+      <div className='App'>
           <Countdown />
       </div>
   )
